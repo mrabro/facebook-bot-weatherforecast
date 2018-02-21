@@ -1,6 +1,6 @@
 'use strict';
 
-const colors = require('colors');
+// const colors = require('colors');
 const moment = require('moment');
 const dictionary = require('./dictionary');
 
@@ -48,7 +48,7 @@ let currentWeather = response => {
 		// Access conditions
 		let {text, temp, code} = resp.item.condition; //text = resp.item.condition.text; temp = resp.item.condition.temp;
 
-		return `Right now, ${getPrefix(code)} ${text.toLowerCase().red.bold} in ${location.bold}. It is ${getFeel(Number(temp)).bold} at ${temp.red.bold} degrees Celsius.`;
+		return `Right now, ${getPrefix(code)} ${text.toLowerCase()} in ${location}. It is ${getFeel(Number(temp))} at ${temp} degrees Celsius.`;
 
 	}else{
 		return "I don't seem to know anything about this place.. Sorry! :(";
@@ -67,7 +67,7 @@ let forecastWeather = (response, data) => {
 		let regEx = new RegExp(data.weather, "i");
 		let testConditions = regEx.test(getForecast.text); // true or false
 		
-		return `${testConditions ? 'Yes':'No'}, ${getPrefix(getForecast.code, 'future')} ${getForecast.text.bold} ${data.time} in ${location.yellow.bold}`;
+		return `${testConditions ? 'Yes':'No'}, ${getPrefix(getForecast.code, 'future')} ${getForecast.text} ${data.time} in ${location}`;
 	} else {
 		return "I don't seem to know .. Sorry! :(";
 	}

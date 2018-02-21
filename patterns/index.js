@@ -16,6 +16,9 @@ const patternDict = [{
 }, {
 	pattern: '\\b(?<weather>hot|cold|rain|rainy|sunny|snow|thunderstorms|windy|drizzle)\\b\\s\\b(?<time>day\\safter\\stomorrow|tomorrow|today)\\sin\\s\\b(?<city>[a-z]+[ a-z]+?)$',
 	intent: 'WeatherForecast'
+}, {
+	pattern: '\\bsend\\s?\\bimage\\b',
+	intent: 'Image'
 }];
 
 module.exports = patternDict;

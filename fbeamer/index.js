@@ -26,6 +26,23 @@ class FBeamer {
 			return res.status(403).end();
 		}
 	}
+
+	subscribe(){
+		request({
+			uri: 'https://graph.facebook.com/v2.6/me/subscribed_apps',
+			qs: {
+				access_token: this.PAGE_ACCESS_TOKEN
+			},
+			method: 'POST'
+		}, (error, response, body) =>{
+			if(!error && JSON.parse(body).success){
+				console.log("Subscribed to the Page");
+			}else{
+				console.log(error);
+			}
+		});
+	}
+
 	incoming(req, res, cb){
 		//Extract the body of the POST request
 		let data = req.body;
@@ -39,6 +56,7 @@ class FBeamer {
 						timeOfMessage: msgEvent.timestamp,
 						message: msgEvent.message
 					}
+					// console.log(req);
 					cb(messageObj);
 				});
 			});
@@ -58,9 +76,10 @@ class FBeamer {
 				json: payload
 			}, (error, response, body) =>{
 				if(!error && response.statusCode === 200){
-					resolve({
-						messageId: body.message_id
-					});
+					// resolve({
+					// 	messageId: body.message_id
+					// });
+					resolve();
 				}else{
 					reject(error);
 				}
@@ -69,13 +88,32 @@ class FBeamer {
 	}
 
 	// Send a text message
-	txt(id, text){
+	text(id, text){
 		let obj = {
 			recipient: {
 				id
 			},
 			message: {
 				text
+			}
+		}
+		this.sendMessage(obj)
+			.catch(error => console.log(error));
+	}
+
+	// Sending Img
+	img(id, url){
+		let obj = {
+			recipient: {
+				id
+			},
+			message: {
+				attachment: {
+					type: 'image',
+					payload: {
+						url
+					}
+				}
 			}
 		}
 		this.sendMessage(obj)

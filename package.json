@@ -2,12 +2,16 @@
   "name": "vanilla",
   "version": "1.0.0",
   "description": "a rule based weather bot",
-  "main": "server.js",
+  // "main": "server.js",
   "scripts": {
+    "start" : "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
+  "engines": {
+    "node" : "7.3.0"
+  },
   "dependencies": {
     "colors": "1.1.2",
     "moment": "2.13.0",
